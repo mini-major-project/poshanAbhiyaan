@@ -1,7 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 <script language="Javascript">
 	function validateEmail(x) {
 		var ret = false;
@@ -64,16 +67,25 @@
 	}
 	function giveChildren() {
 		var n = document.getElementById("noofchildren").value;
-		console.log("no.of children: " + n);
+	/* /<select>
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="mercedes">Mercedes</option>
+  <option value="audi">Audi</option>
+</select> */
+		console.log("n: " + n);
 		var res = "<br/>";
 		for (var i = 0; i < n; i++) {
-			res = res + "Name:<input type='text' id='cName' name='cName' required > &nbsp Gender :<select id='cGender' name='cGender' required><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select>&nbspDate of Birth :<input type='Date' id='cDob' name='cDob' required><br/><br/>"
+			res = res + "Name:<input type='text' id='cName"+(i+1)+"' name='cName" + (i + 1)
+					+ "' required>&nbspGender :<select id='cGender"+ (i+1) +"' name='cGender"+ (i + 1) + "' required><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select>&nbspDate of Birth :<input type='Date' id='cDob"+ (i+1) +"' name='cDob"
+					+ (i + 1) + "' required><br/><br/>"
 		}
 		console.log("res: " + res);
 		document.getElementById('childInfo').innerHTML = res;
 	}
 	function pregnantCheck() {
-				
+		var name=document.getElementById("cName1").value;
+		
 		if (document.getElementById('yesPregCheck').checked) {
 			document.getElementById('ifYesPreg').style.display = 'block';
 			document.getElementById('ifNoPreg').style.display = 'none';
@@ -83,9 +95,10 @@
 		}
 	}
 </script>
+
 </head>
 <body>
-	<h2>Registration Page</h2>
+<h2>Registration Page</h2>
 	<form action="UserRegistration" method="get">
 		<table>
 			<tr>
@@ -138,7 +151,7 @@
 							placeholder="maximum 3 children are only allowed"
 							onkeyup="javascript:giveChildren();">
 						<div id="childInfo">
-						    
+						
 						</div>
 					</div>
 				</td>

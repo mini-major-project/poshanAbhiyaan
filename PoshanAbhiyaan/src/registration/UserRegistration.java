@@ -1,6 +1,7 @@
 package registration;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -64,27 +65,33 @@ public class UserRegistration extends HttpServlet {
 		session.setAttribute("generatedotp", generatedotp);
 		
 		String children=request.getParameter("children");
+		session.setAttribute("children", children);
+		
 		if(children.equals("yes")){
 			String noOfChildren= request.getParameter("noofchildren");
 			session.setAttribute("noofchildren", noOfChildren);
-			for(int i=1;i<=Integer.parseInt(noOfChildren);i++) {
+			
+			String cNames[]=request.getParameterValues("cName");
+			String cDobs[]=request.getParameterValues("cDob");
+			String cGenders[]=request.getParameterValues("cGender");
+			
+			for(int i=1;i<=Integer.parseInt(noOfChildren);i++){
 				String name="cName"+i;
 				String gender="cGender"+i;
 				String dob="cDob"+i;
 				
-				String cName=request.getParameter("name");
-				String cGender=request.getParameter("gender");
-				String cDob=request.getParameter("dob");
-				System.out.println("cDob in get "+cDob);
-				
-				session.setAttribute("cName", name);
-				session.setAttribute("cGender", gender);
-				session.setAttribute("cDob", dob);
+				//System.out.println("cDob in get "+i+" :Value: "+cDobs[i-1]+" session: "+dob);
+				session.setAttribute(name, cNames[i-1]);
+				session.setAttribute(gender, cGenders[i-1]);
+				session.setAttribute(dob, cDobs[i-1]);
 			}
 		}
-		
-		
-		session.setAttribute("children", children);
+		String pregnant=request.getParameter("pregnant");
+		if(pregnant.equals("yes")){
+			String pregnancyDate=request.getParameter("pregnancyDate");
+			System.out.println("start of preg: "+pregnancyDate);
+			session.setAttribute("pregnancyDate", pregnancyDate);
+		}
 
 		try {
 			sm.setMailServerProperties();
@@ -109,6 +116,7 @@ public class UserRegistration extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		PrintWriter out=response.getWriter();
 		SendingMail sm = new SendingMail();
 
 		String enteredotp = request.getParameter("otp");
@@ -125,16 +133,25 @@ public class UserRegistration extends HttpServlet {
 		String generatedotp = (String) session.getAttribute("generatedotp");
 		String children = (String) session.getAttribute("children");
 
-		System.out.println(
-				userName + " " + userMobile + " " + userMail + " " + userPswd + " " + userAddress + " " + userPinCode);
+//		System.out.println(
+//				userName + " " + userMobile + " " + userMail + " " + userPswd + " " + userAddress + " " + userPinCode);
 
 		if (enteredotp.equals(generatedotp)) {
-			// sm.insert(userName, userPswd, userAddress, userMobile, userMail,
-			// userPinCode);
+
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root",
 						"root");
+				PreparedStatement stmt=con.prepareStatement("select * from user where userMail=?");
+				stmt.setString(1, userMail);
+				if(stmt.executeQuery().next()) {
+					System.out.println("Already Registered User. Login");
+					out.print("<html><body><h3>Already Registered with Provided Mail ID</h3></body></html>");
+					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");
+					rd.forward(request, response);
+					return;
+					
+				}
 				PreparedStatement pstmt = con.prepareStatement(
 						"insert into user(userName,userMail,userPswd,userMobile,userAddress,userPinCode) values(?,?,?,?,?,?);");
 
@@ -164,10 +181,10 @@ public class UserRegistration extends HttpServlet {
 								String name="cName"+i;
 								String gender="cGender"+i;
 								String dob="cDob"+i;
-								String cName=(String) session.getAttribute("name");
-								String cGender=(String) session.getAttribute("gender");
-								String cDob=(String) session.getAttribute("dob");
-								System.out.println("cDob "+cDob);
+								String cName=(String) session.getAttribute(name);
+								String cGender=(String) session.getAttribute(gender);
+								String cDob=(String) session.getAttribute(dob);
+							//	System.out.println("cDob "+i+" session: "+dob+ ": "+cDob);
 								
 								PreparedStatement pstmt3 = con.prepareStatement(
 										"insert into child(cName,cGender,cDob,parent) values(?,?,?,?);");
