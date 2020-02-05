@@ -12,7 +12,7 @@ userPinCode varchar(6)
 );
 
 -- truncate table user;
---  drop table user;
+-- drop table user;
 
 create table child(
 cId int auto_increment primary key,
@@ -21,14 +21,14 @@ cGender varchar(6),
 cDob date,
 parent int,
 foreign key(parent) references user(userId),
-day0 varchar(5),
-day42 varchar(5),
-day71 varchar(5),
-day99 varchar(5),
-day472 varchar(5),
-day1780 varchar(5),
-day3560 varchar(5),
-day4300 varchar(5) 
+day0 date,
+day42 date,
+day71 date,
+day99 date,
+day472 date,
+day1780 date,
+day3560 date,
+day4300 date 
 );
 
 -- drop table child;
