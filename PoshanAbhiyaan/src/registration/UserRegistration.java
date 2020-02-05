@@ -7,6 +7,9 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -20,8 +23,6 @@ import javax.servlet.http.HttpSession;
 
 import mailapi.SendingMail;
 
-
-
 /**
  * Servlet implementation class UserRegistration
  */
@@ -29,26 +30,28 @@ import mailapi.SendingMail;
 public class UserRegistration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public UserRegistration() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public UserRegistration() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		String userName=request.getParameter("userName");
-		String userMail=request.getParameter("userMail");
-		String userPhone=request.getParameter("userPhone");
-		String userAddress=request.getParameter("userAddress");
-		String userPinCode=request.getParameter("userPinCode");
-		String userPswd=request.getParameter("userPswd");
-		
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		String userName = request.getParameter("userName");
+		String userMail = request.getParameter("userMail");
+		String userPhone = request.getParameter("userPhone");
+		String userAddress = request.getParameter("userAddress");
+		String userPinCode = request.getParameter("userPinCode");
+		String userPswd = request.getParameter("userPswd");
+
 		SendingMail sm = new SendingMail();
 		String generatedotp = sm.getRandom();
 		System.out.println("Generated otp: " + generatedotp);
@@ -63,39 +66,39 @@ public class UserRegistration extends HttpServlet {
 		session.setAttribute("userPswd", userPswd);
 		session.setAttribute("userAddress", userAddress);
 		session.setAttribute("generatedotp", generatedotp);
-		
-		String children=request.getParameter("children");
+
+		String children = request.getParameter("children");
 		session.setAttribute("children", children);
-		
-		if(children.equals("yes")){
-			String noOfChildren= request.getParameter("noofchildren");
+
+		if (children.equals("yes")) {
+			String noOfChildren = request.getParameter("noofchildren");
 			session.setAttribute("noofchildren", noOfChildren);
-			
-			String cNames[]=request.getParameterValues("cName");
-			String cDobs[]=request.getParameterValues("cDob");
-			String cGenders[]=request.getParameterValues("cGender");
-			
-			for(int i=1;i<=Integer.parseInt(noOfChildren);i++){
-				String name="cName"+i;
-				String gender="cGender"+i;
-				String dob="cDob"+i;
-				
-				//System.out.println("cDob in get "+i+" :Value: "+cDobs[i-1]+" session: "+dob);
-				session.setAttribute(name, cNames[i-1]);
-				session.setAttribute(gender, cGenders[i-1]);
-				session.setAttribute(dob, cDobs[i-1]);
+
+			String cNames[] = request.getParameterValues("cName");
+			String cDobs[] = request.getParameterValues("cDob");
+			String cGenders[] = request.getParameterValues("cGender");
+
+			for (int i = 1; i <= Integer.parseInt(noOfChildren); i++) {
+				String name = "cName" + i;
+				String gender = "cGender" + i;
+				String dob = "cDob" + i;
+
+				// System.out.println("cDob in get "+i+" :Value: "+cDobs[i-1]+" session: "+dob);
+				session.setAttribute(name, cNames[i - 1]);
+				session.setAttribute(gender, cGenders[i - 1]);
+				session.setAttribute(dob, cDobs[i - 1]);
 			}
 		}
-		String pregnant=request.getParameter("pregnant");
-		if(pregnant.equals("yes")){
-			String pregnancyDate=request.getParameter("pregnancyDate");
-			System.out.println("start of preg: "+pregnancyDate);
+		String pregnant = request.getParameter("pregnant");
+		if (pregnant.equals("yes")) {
+			String pregnancyDate = request.getParameter("pregnancyDate");
+			System.out.println("start of preg: " + pregnancyDate);
 			session.setAttribute("pregnancyDate", pregnancyDate);
 		}
 
 		try {
 			sm.setMailServerProperties();
-			sm.createEmailMessage(userMail, "Your OTP is:"+generatedotp);
+			sm.createEmailMessage(userMail, "Your OTP is:" + generatedotp);
 			sm.sendEmail();
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
@@ -108,15 +111,16 @@ public class UserRegistration extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("EnterOTP.html");
 		rd.forward(request, response);
 
-
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter out=response.getWriter();
+		PrintWriter out = response.getWriter();
 		SendingMail sm = new SendingMail();
 
 		String enteredotp = request.getParameter("otp");
@@ -140,17 +144,17 @@ public class UserRegistration extends HttpServlet {
 
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root",
-						"root");
-				PreparedStatement stmt=con.prepareStatement("select * from user where userMail=?");
+				Connection con = DriverManager.getConnection(
+						"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "root");
+				PreparedStatement stmt = con.prepareStatement("select * from user where userMail=?");
 				stmt.setString(1, userMail);
-				if(stmt.executeQuery().next()) {
+				if (stmt.executeQuery().next()) {
 					System.out.println("Already Registered User. Login");
 					out.print("<html><body><h3>Already Registered with Provided Mail ID</h3></body></html>");
 					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");
 					rd.forward(request, response);
 					return;
-					
+
 				}
 				PreparedStatement pstmt = con.prepareStatement(
 						"insert into user(userName,userMail,userPswd,userMobile,userAddress,userPinCode) values(?,?,?,?,?,?);");
@@ -164,45 +168,101 @@ public class UserRegistration extends HttpServlet {
 
 				int rs = pstmt.executeUpdate();
 				if (rs > 0) {
-					PreparedStatement pstmt2 = con.prepareStatement(
-							"select userId from user where userMail=?;");
+					PreparedStatement pstmt2 = con.prepareStatement("select userId from user where userMail=?;");
 
 					pstmt2.setString(1, userMail);
-					ResultSet rs2=pstmt2.executeQuery();
-					int parent=0;
-					while(rs2.next()) {
-						parent=rs2.getInt("userId");
+					ResultSet rs2 = pstmt2.executeQuery();
+					int parent = 0;
+					while (rs2.next()) {
+						parent = rs2.getInt("userId");
 					}
-					
-					if(children!=null && children.equalsIgnoreCase("yes")) {
-						
-							String noOfChildren=(String) session.getAttribute("noofchildren");
-							for(int i=1;i<=Integer.parseInt(noOfChildren);i++) {
-								String name="cName"+i;
-								String gender="cGender"+i;
-								String dob="cDob"+i;
-								String cName=(String) session.getAttribute(name);
-								String cGender=(String) session.getAttribute(gender);
-								String cDob=(String) session.getAttribute(dob);
-							//	System.out.println("cDob "+i+" session: "+dob+ ": "+cDob);
-								
-								PreparedStatement pstmt3 = con.prepareStatement(
-										"insert into child(cName,cGender,cDob,parent) values(?,?,?,?);");
 
-								pstmt3.setString(1, cName);
-								pstmt3.setString(2, cGender);
-								pstmt3.setString(3, cDob);
-								pstmt3.setInt(4, parent);
+					if (children != null && children.equalsIgnoreCase("yes")) {
 
-								int rs3 = pstmt3.executeUpdate();
-								if(rs3>0) {
-									System.out.println("Child entry entered into db");
-								}
-								
+						String noOfChildren = (String) session.getAttribute("noofchildren");
+						for (int i = 1; i <= Integer.parseInt(noOfChildren); i++) {
+							String name = "cName" + i;
+							String gender = "cGender" + i;
+							String dob = "cDob" + i;
+							String cName = (String) session.getAttribute(name);
+							String cGender = (String) session.getAttribute(gender);
+							String cDob = (String) session.getAttribute(dob);
+							System.out.println("cDob " + i + " session: " + dob + ": " + cDob);
+
+							Date date = Date.valueOf(cDob);
+							System.out.println("Date of birth: " + date);
+
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+							Calendar c = Calendar.getInstance();
+							try {
+								// Setting the date to the given date
+								c.setTime(sdf.parse(cDob));
+
+								// Number of Days to add
+								c.add(Calendar.DAY_OF_MONTH, 42);
+								// Date after adding the days to the given date
+								String day42 = sdf.format(c.getTime());
+
+								c.setTime(sdf.parse(cDob));
+								c.add(Calendar.DAY_OF_MONTH, 71);
+								String day71 = sdf.format(c.getTime());
+
+								c.setTime(sdf.parse(cDob));
+								c.add(Calendar.DAY_OF_MONTH, 99);
+								String day99 = sdf.format(c.getTime());
+
+								c.setTime(sdf.parse(cDob));
+								c.add(Calendar.DAY_OF_MONTH, 472);
+								String day472 = sdf.format(c.getTime());
+
+								c.setTime(sdf.parse(cDob));
+								c.add(Calendar.DAY_OF_MONTH, 1780);
+								String day1780 = sdf.format(c.getTime());
+
+								c.setTime(sdf.parse(cDob));
+								c.add(Calendar.DAY_OF_MONTH, 3560);
+								String day3560 = sdf.format(c.getTime());
+
+								c.setTime(sdf.parse(cDob));
+								c.add(Calendar.DAY_OF_MONTH, 4300);
+								String day4300 = sdf.format(c.getTime());
+
+							
+							// Displaying the new Date after addition of Days
+							System.out.println("day42: " + day42);
+							System.out.println("day71: " + day71);
+							System.out.println("day99: " + day99);
+							System.out.println("day472: " + day472);
+
+							PreparedStatement pstmt3 = con
+									.prepareStatement("insert into child(cName,cGender,cDob,parent,day0,day42,day71,day99,day472,day1780,day3560,day4300) values(?,?,?,?,?,?,?,?,?,?,?,?);");
+
+							pstmt3.setString(1, cName);
+							pstmt3.setString(2, cGender);
+							pstmt3.setString(3, cDob);
+							pstmt3.setInt(4, parent);
+							pstmt3.setString(5, cDob);
+							pstmt3.setString(6, day42);
+							pstmt3.setString(7, day71);
+							pstmt3.setString(8, day99);
+							pstmt3.setString(9, day472);
+							pstmt3.setString(10, day1780);
+							pstmt3.setString(11, day3560);
+							pstmt3.setString(12, day4300);							
+
+							int rs3 = pstmt3.executeUpdate();
+							if (rs3 > 0) {
+								System.out.println("Child entry entered into db");
 							}
-						
+							} catch (ParseException e) {
+								System.out.println("Date parsing exception");
+								e.printStackTrace();
+							}
+						}
+
 					}
 					
+
 					System.out.println("Registered Successfully");
 					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");
 					rd.forward(request, response);
@@ -211,21 +271,20 @@ public class UserRegistration extends HttpServlet {
 					System.out.print("Error");
 				}
 			}
-
+			
 			catch (Exception e) {
 				System.out.println("in catch block for connecting sql driver");
 				e.printStackTrace();
 			}
 
 			System.out.println("OTP verified - Registered Successfully");
-			
-		
+
 		} else {
 			System.out.println("Invalid OTP");
 			RequestDispatcher rd = request.getRequestDispatcher("UserRegistration.html");
 			rd.forward(request, response);
 			return;
-	
+
 		}
 
 	}

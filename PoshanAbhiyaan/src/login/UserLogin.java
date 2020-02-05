@@ -87,7 +87,7 @@ public class UserLogin extends HttpServlet {
 					rd.include(request, response);
 				} else {
 					System.out.println("Wrong Password");
-					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");
+					RequestDispatcher rd = request.getRequestDispatcher("UserHomePage");
 					rd.include(request, response);
 				}
 			}
