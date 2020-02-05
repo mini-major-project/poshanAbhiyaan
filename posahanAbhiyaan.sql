@@ -58,22 +58,6 @@ insert into childvaccinations values
 );
 select * from childvaccinations;
 
-create table pregnant(
-pid int auto_increment primary key,
-pname varchar(20),
-pdate date,
-womenid int,
-foreign key(womenid) references user(userid),
-day0 varchar(5),
-day42 varchar(5),
-day71 varchar(5),
-day99 varchar(5),
-day472 varchar(5),
-day1780 varchar(5),
-day3560 varchar(5),
-day4300 varchar(5) 
-);
-
 select * from user;
 
 select * from child;
