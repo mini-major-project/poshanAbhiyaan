@@ -56,13 +56,13 @@ public class UserLogin extends HttpServlet {
 				String pswd = "";
 				String userMobile = "";
 				String userName="";
-				String userId="";
+				int userId=0;
 				String userPinCode="";
 				do {
 					pswd = rs.getString("userPswd");
 					userMobile = rs.getString("userMobile");
 					userName=rs.getString("userName");
-                    userId=rs.getString("userId");
+                    userId=rs.getInt("userId");
                     userPinCode=rs.getString("userPinCode");
 				} while (rs.next());
 				if (userPswd.equals(pswd)) {
@@ -77,17 +77,12 @@ public class UserLogin extends HttpServlet {
 					session.setAttribute("userMobile", userMobile);
 					session.setAttribute("userName", userName);
 					session.setAttribute("userId", userId);
-//					if(userGivenPinCode==null) {
-//						userGivenPinCode=userPinCode;
-//					}
-//					session.setAttribute("userPinCode", userGivenPinCode);
 
-					//System.out.println("pincode for searching: "+userGivenPinCode);
-					RequestDispatcher rd = request.getRequestDispatcher("UserHomePage.html");
+					RequestDispatcher rd = request.getRequestDispatcher("UserHomePage");
 					rd.include(request, response);
 				} else {
 					System.out.println("Wrong Password");
-					RequestDispatcher rd = request.getRequestDispatcher("UserHomePage");
+					RequestDispatcher rd = request.getRequestDispatcher("UserRegistration.html");
 					rd.include(request, response);
 				}
 			}
