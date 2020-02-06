@@ -1,0 +1,1 @@
+This folder contains all html files with frontend code. Please validate before merging with the project
