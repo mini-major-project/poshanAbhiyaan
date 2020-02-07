@@ -44,7 +44,7 @@ public class UserLogin extends HttpServlet {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root", "root");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "root");
 			PreparedStatement pstmt = con.prepareStatement("select * from user where userMail=?");
 			pstmt.setString(1, userMail);
 			ResultSet rs = pstmt.executeQuery();
@@ -82,7 +82,7 @@ public class UserLogin extends HttpServlet {
 					rd.include(request, response);
 				} else {
 					System.out.println("Wrong Password");
-					RequestDispatcher rd = request.getRequestDispatcher("UserRegistration.html");
+					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");
 					rd.include(request, response);
 				}
 			}

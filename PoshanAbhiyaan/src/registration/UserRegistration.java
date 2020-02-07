@@ -102,10 +102,14 @@ public class UserRegistration extends HttpServlet {
 			sm.sendEmail();
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
+			System.out.println("ENter valid address mail id");
 			e.printStackTrace();
+			RequestDispatcher rd = request.getRequestDispatcher("UserRegistration.html");
+			rd.forward(request, response);
+			return;
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+						e.printStackTrace();
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("EnterOTP.html");
@@ -227,33 +231,32 @@ public class UserRegistration extends HttpServlet {
 								c.add(Calendar.DAY_OF_MONTH, 4300);
 								String day4300 = sdf.format(c.getTime());
 
-							
-							// Displaying the new Date after addition of Days
-							System.out.println("day42: " + day42);
-							System.out.println("day71: " + day71);
-							System.out.println("day99: " + day99);
-							System.out.println("day472: " + day472);
+								// Displaying the new Date after addition of Days
+								System.out.println("day42: " + day42);
+								System.out.println("day71: " + day71);
+								System.out.println("day99: " + day99);
+								System.out.println("day472: " + day472);
 
-							PreparedStatement pstmt3 = con
-									.prepareStatement("insert into child(cName,cGender,cDob,parent,day0,day42,day71,day99,day472,day1780,day3560,day4300) values(?,?,?,?,?,?,?,?,?,?,?,?);");
+								PreparedStatement pstmt3 = con.prepareStatement(
+										"insert into child(cName,cGender,cDob,parent,day0,day42,day71,day99,day472,day1780,day3560,day4300) values(?,?,?,?,?,?,?,?,?,?,?,?);");
 
-							pstmt3.setString(1, cName);
-							pstmt3.setString(2, cGender);
-							pstmt3.setString(3, cDob);
-							pstmt3.setInt(4, parent);
-							pstmt3.setString(5, cDob);
-							pstmt3.setString(6, day42);
-							pstmt3.setString(7, day71);
-							pstmt3.setString(8, day99);
-							pstmt3.setString(9, day472);
-							pstmt3.setString(10, day1780);
-							pstmt3.setString(11, day3560);
-							pstmt3.setString(12, day4300);							
+								pstmt3.setString(1, cName);
+								pstmt3.setString(2, cGender);
+								pstmt3.setString(3, cDob);
+								pstmt3.setInt(4, parent);
+								pstmt3.setString(5, cDob);
+								pstmt3.setString(6, day42);
+								pstmt3.setString(7, day71);
+								pstmt3.setString(8, day99);
+								pstmt3.setString(9, day472);
+								pstmt3.setString(10, day1780);
+								pstmt3.setString(11, day3560);
+								pstmt3.setString(12, day4300);
 
-							int rs3 = pstmt3.executeUpdate();
-							if (rs3 > 0) {
-								System.out.println("Child entry entered into db");
-							}
+								int rs3 = pstmt3.executeUpdate();
+								if (rs3 > 0) {
+									System.out.println("Child entry entered into db");
+								}
 							} catch (ParseException e) {
 								System.out.println("Date parsing exception");
 								e.printStackTrace();
@@ -261,7 +264,6 @@ public class UserRegistration extends HttpServlet {
 						}
 
 					}
-					
 
 					System.out.println("Registered Successfully");
 					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");
@@ -271,7 +273,7 @@ public class UserRegistration extends HttpServlet {
 					System.out.print("Error");
 				}
 			}
-			
+
 			catch (Exception e) {
 				System.out.println("in catch block for connecting sql driver");
 				e.printStackTrace();
