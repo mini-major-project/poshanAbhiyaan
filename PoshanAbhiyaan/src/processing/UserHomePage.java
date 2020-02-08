@@ -172,7 +172,7 @@ public class UserHomePage extends HttpServlet {
 				"                <li><a href=\"track.html\">Track Your Records</a></li>\r\n" + 
 				"                <li><a href=\"reviews.html\">Reviews</a></li>\r\n" + 
 				"                <li><a href=\"faqs.html\">FAQ's</a></li>         \r\n" + 
-				"                <li><a href=\"profile.html\"> My Profile</a></li>\r\n" + 
+				"                <li><a href=\"profile.jsp\"> My Profile</a></li>\r\n" + 
 				"                \r\n" + 
 				"              </ul>");
 		out.println("<h1>Children: Vaccination & Nutritions</h1>");
