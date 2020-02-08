@@ -1,84 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<title>Document</title>
-<style>
-ul {
-    list-style-type: none;
-   
-    overflow: hidden;
-    background-color:rgb(80, 4, 80);
-  }
-  
-  li {
-    float: left;
-  }
-  
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 30px 30px;
-    text-decoration: none;
-  }
-  * {
-box-sizing: border-box;
-}
-
-body {
-font-family: Arial, Helvetica, sans-serif;
-}
-
-
-
-/* Remove extra left and right margins, due to padding */
-.row {margin: 0 -5px;}
-
-
-/* Responsive columns */
-@media screen and (max-width: 600px) {
-.column {
-width: 100%;
-display: block;
-margin-bottom: 20px;
-}
-}
-
-/* Style the counter cards */
-
-.center {
-display: block;
-margin-left: auto;
-margin-right: auto;
-width: 50%;
-}
-    .button {
-background-color: rgb(5, 80, 8);
-border: none;
-color: white;
-padding: 15px 32px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-margin: 4px 2px;
-cursor: pointer;
-}
-    * {
-box-sizing: border-box;
-}
-
-
-}
-</style>
-
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 <script language="Javascript">
 	function validateEmail(x) {
 		var ret = false;
@@ -91,9 +17,7 @@ box-sizing: border-box;
 		console.log(error);
 		return ret;
 	}
-
 	function validatePinCode(pincode) {
-
 		var len = parseInt(pincode.length);
 		var ret = false;
 		var error = "Please enter a valid PinCode ";
@@ -104,7 +28,6 @@ box-sizing: border-box;
 		document.getElementById("pinCodeValidation").innerHTML = error;
 		return ret;
 	}
-
 	function validatePassword(str) {
 		var ret = false;
 		var res = "Password Not valid( Should have 1 lowercase, 1 Uppercase, 1 special character,1 number, Min 8 characters";
@@ -116,7 +39,6 @@ box-sizing: border-box;
 		document.getElementById("pswdValidation").innerHTML = res;
 		return ret;
 	}
-
 	function validatePasswords(pswd1, pswd2) {
 		if (pswd1 != pswd2) {
 			alert("Passwords are not matching");
@@ -129,7 +51,6 @@ box-sizing: border-box;
 			alert("Please Enter Valid Details");
 		}
 	}
-
 	function yesnoCheck() {
 		if (document.getElementById('yesCheck').checked) {
 			document.getElementById('ifYes').style.display = 'block';
@@ -150,14 +71,16 @@ box-sizing: border-box;
 		console.log("n: " + n);
 		var res = "<br/>";
 		for (var i = 0; i < n; i++) {
-			res = res + "Name:<input type='text' name='cname" + (i + 1)
-					+ "'>&nbspGender :<select name='cgender"+ (i + 1) + "'><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select>&nbspAge :<input type='text' name='cage"
-					+ (i + 1) + "'><br/><br/>"
+			res = res + "Name:<input type='text' id='cName"+(i+1)+"' name='cName" + (i + 1)
+					+ "' required>&nbspGender :<select id='cGender"+ (i+1) +"' name='cGender"+ (i + 1) + "' required><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select>&nbspDate of Birth :<input type='Date' id='cDob"+ (i+1) +"' name='cDob"
+					+ (i + 1) + "' required><br/><br/>"
 		}
 		console.log("res: " + res);
 		document.getElementById('childInfo').innerHTML = res;
 	}
 	function pregnantCheck() {
+		var name=document.getElementById("cName1").value;
+		
 		if (document.getElementById('yesPregCheck').checked) {
 			document.getElementById('ifYesPreg').style.display = 'block';
 			document.getElementById('ifNoPreg').style.display = 'none';
@@ -167,65 +90,64 @@ box-sizing: border-box;
 		}
 	}
 </script>
+
 </head>
 <body>
-         <center>
-	<h2>Register Here!!!</h2>
-        <img src="register.jpg" width="550" height="280">
-        <br/><br/><br><br>
-       
-	<form>
+<h2>Registration Page</h2>
+	<form action="UserRegistration" method="get">
 		<table>
 			<tr>
-				<td><b> Name : </b></td>
-				<td><input type="text" name="username" required><br></td>
+				<td>Name:</td>
+				<td><input type="text" name="userName" required></td>
 			</tr>
-			<tr> 
-				<td><b> Mail ID : </b></td>
-				<td><input type="text" name="wmail" id="userMail"
+			<tr>
+				<td>Mail ID:</td>
+				<td><input type="text" name="userMail" id="userMail"
 					onkeyup="validateEmail(document.getElementById('userMail').value)"
-                    required> &nbsp;
-                    <span style="color: red; font-size: smaller" id="mailValidation"></span><br>
+					required> &nbsp;<span
+					style="color: red; font-size: smaller" id="mailValidation"></span>
 				</td>
 			</tr>
 			<tr>
-				<td><b> Phone Number : </b></td>
-				<td><input type="text" name="userphone" required><br></td>
+				<td>Phone Number:</td>
+				<td><input type="text" name="userPhone" required></td>
 			</tr>
 			<tr>
-				<td><b>Address : </b></td>
-				<td><textarea type="text" name="userAddress" placeholder="Enter Address" style="height:60px;width:200px" required></textarea><br></td>
+				<td>Address:</td>
+				<td><textarea type="text" name="userAddress" placeholder="Enter Address" style="height:60px;width:200px" required></textarea></td>
 			</tr>
 			<tr>
-				<td><b> PinCode : </b></td>
-				<td><input type="text" name="userPinCode" placeholder="Enter Pin Code" id="userPinCode" onkeyup="validatePinCode(document.getElementById('userPinCode').value)" required><br></label>
-                &nbsp;<span style="color:red;font-size:smaller" id="pinCodeValidation"></span><br></td>
+				<td>PinCode:</td>
+				<td><input type="text" name="userPinCode" placeholder="Enter Pin Code" id="userPinCode" onkeyup="validatePinCode(document.getElementById('userPinCode').value)" required></label>
+                &nbsp;<span style="color:red;font-size:smaller" id="pinCodeValidation"></span> <br></td>
 			</tr>
 			<tr>
-				<td><b> Set Password : </b></td>
+				<td>Set Password:</td>
 				<td><input type="password" name="userPswd"
 					placeholder="Enter Password" id="userPswd"
 					onkeyup="validatePassword(document.getElementById('userPswd').value)"
 					required> &nbsp;<span
-					style="color: red; font-size: smaller" id="pswdValidation"></span><br>
+					style="color: red; font-size: smaller" id="pswdValidation"></span>
 					<br></td>
 			</tr>
 			<tr>
-				<td><b> Confirm Password : </b></td>
+				<td>Confirm Password:</td>
 				<td><input type="password" name="userPswd"
 					placeholder="Re-Enter Password" id="userPswd2" required><br>
 				</td>
 			</tr>
 			<tr>
-				<td><br /><br /><b> Do you have children ? : </b></td>
+				<td><br /><br />Do you have children?:</td>
 				<td>Yes:<input type="radio" name="children" value="yes"
 					id="yesCheck" onclick="javascript:yesnoCheck();" required>
 					<div id="ifYes" style="display: none">
-						<b> No.of Children : </b> <input type="text" name="noofchildren"
+						No.of Children: <input type="text" name="noofchildren"
 							id="noofchildren"
 							placeholder="maximum 3 children are only allowed"
 							onkeyup="javascript:giveChildren();">
-						<div id="childInfo"></div>
+						<div id="childInfo">
+						
+						</div>
 					</div>
 				</td>
 			</tr>
@@ -237,12 +159,12 @@ box-sizing: border-box;
 				</td>
 			</tr>
 			<tr>
-				<td><br /><br /><b> Are you Pregnant ? : </b></td>
+				<td><br /><br />Are you Pregnant?:</td>
 				<td>Yes:<input type="radio" name="pregnant" value="yes"
 					id="yesPregCheck" onclick="javascript:pregnantCheck();" required>
 					<div id="ifYesPreg" style="display: none">
-						Month of Pregnancy :  <input type="text" name="pregnancyMonth"
-							id="pregnancyMonth">
+						Start Date of Pregnancy: <input type="date" name="pregnancyDate"
+							id="pregnancyDate">
 					</div>
 				</td>
 			</tr>
@@ -261,10 +183,8 @@ box-sizing: border-box;
 					onmouseover="validatePasswords(document.getElementById('userPswd').value, document.getElementById('userPswd2').value),validateForm()"><br>
 					<br></td>
 			</tr>
-        </table>
-    
+		</table>
 	</form>
 
-</center>
 </body>
 </html>
