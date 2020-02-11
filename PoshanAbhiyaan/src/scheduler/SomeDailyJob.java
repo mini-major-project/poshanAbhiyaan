@@ -45,9 +45,9 @@ public class SomeDailyJob implements Runnable {
 			for (int i = 0; i < dates.size(); i++) {
 				LocalDate date = LocalDate.parse(dates.get(i));
 				long daysBetween = ChronoUnit.DAYS.between(SystemDate, date);
-				System.out.println(daysBetween);
+				System.out.println("DayBetween: "+daysBetween);
 
-				if (daysBetween == 0) {
+				if (daysBetween == 0 || daysBetween ==1 || daysBetween==2) {
 					PreparedStatement pstmt2 = con.prepareStatement("select * from child where cId=?;");
 					pstmt2.setInt(1,cId);
 					ResultSet rs2 = pstmt2.executeQuery();
@@ -64,10 +64,20 @@ public class SomeDailyJob implements Runnable {
 					while(rs3.next()) {
 						userMail=rs3.getString("userMail");
 					}
-					
+					String daysInMail="";
+					if(daysBetween==0) {
+						daysInMail="today i.e on "+date;
+					}
+					else if(daysBetween==1) {
+						daysInMail="tomorrow i.e on "+date;
+					}
+					else if(daysBetween==2) {
+						daysInMail="on "+date;
+					}
 					try {
+						System.out.println("user: "+userMail);
 						sm.setMailServerProperties();
-						sm.createEmailMessage(userMail, "Your child "+childName+" needs to take vaccination today. Please visit our website to know the details.");
+						sm.createEmailMessage(userMail, "Your child "+childName+" needs to take vaccination "+daysInMail+". Please visit our website to know the details.");
 						sm.sendEmail();
 					} catch (AddressException e) {
 						// TODO Auto-generated catch block

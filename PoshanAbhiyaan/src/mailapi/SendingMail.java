@@ -75,8 +75,8 @@ public class SendingMail {
 
 	public void createEmailMessage(String toEmail, String otp) throws AddressException, MessagingException {
 		// Strin toEmails = { "rishika.blue27@gmail.com" };
-		String emailSubject = "Verify this OTP";
-		String emailBody = "Thank you for choosing us. This is an email sent by poshanabhiyaan." + otp;
+		String emailSubject = "Poshan Abhiyaan";
+		String emailBody = otp+" Thank you for choosing us. This is an email sent by poshanabhiyaan.";
 
 		mailSession = Session.getDefaultInstance(emailProperties, null);
 		emailMessage = new MimeMessage(mailSession);

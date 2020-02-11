@@ -79,7 +79,7 @@ public class UserLogin extends HttpServlet {
 					session.setAttribute("userId", userId);
 
 					RequestDispatcher rd = request.getRequestDispatcher("UserHomePage");
-					rd.include(request, response);
+					rd.forward(request, response);
 				} else {
 					System.out.println("Wrong Password");
 					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");

@@ -6,76 +6,75 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <title>Document</title>
 <style>
 ul {
-    list-style-type: none;
-   
-    overflow: hidden;
-    background-color:rgb(80, 4, 80);
-  }
-  
-  li {
-    float: left;
-  }
-  
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 30px 30px;
-    text-decoration: none;
-  }
-  * {
-box-sizing: border-box;
+	list-style-type: none;
+	overflow: hidden;
+	background-color: rgb(80, 4, 80);
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 30px 30px;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
 }
 
 body {
-font-family: Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
-
-
 /* Remove extra left and right margins, due to padding */
-.row {margin: 0 -5px;}
-
+.row {
+	margin: 0 -5px;
+}
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
-.column {
-width: 100%;
-display: block;
-margin-bottom: 20px;
-}
+	.column {
+		width: 100%;
+		display: block;
+		margin-bottom: 20px;
+	}
 }
 
 /* Style the counter cards */
-
 .center {
-display: block;
-margin-left: auto;
-margin-right: auto;
-width: 50%;
-}
-    .button {
-background-color: rgb(5, 80, 8);
-border: none;
-color: white;
-padding: 15px 32px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-margin: 4px 2px;
-cursor: pointer;
-}
-    * {
-box-sizing: border-box;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }
 
+.button {
+	background-color: rgb(5, 80, 8);
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
 
+* {
+	box-sizing: border-box;
+}
 }
 </style>
 <script language="Javascript">
@@ -143,13 +142,14 @@ box-sizing: border-box;
 		console.log("no.of children: " + n);
 		var res = "<br/>";
 		for (var i = 0; i < n; i++) {
-			res = res + "Name:<input type='text' id='cName' name='cName' required > &nbsp Gender :<select id='cGender' name='cGender' required><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select>&nbspDate of Birth :<input type='Date' id='cDob' name='cDob' required><br/><br/>"
+			res = res
+					+ "Name:<input type='text' id='cName' name='cName' required > &nbsp Gender :<select id='cGender' name='cGender' required><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select>&nbspDate of Birth :<input type='Date' id='cDob' name='cDob' required><br/><br/>"
 		}
 		console.log("res: " + res);
 		document.getElementById('childInfo').innerHTML = res;
 	}
 	function pregnantCheck() {
-				
+
 		if (document.getElementById('yesPregCheck').checked) {
 			document.getElementById('ifYesPreg').style.display = 'block';
 			document.getElementById('ifNoPreg').style.display = 'none';
@@ -162,73 +162,63 @@ box-sizing: border-box;
 
 </head>
 <body>
-        <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="track.html">Track Your Records</a></li>
-                <li><a href="reviews.html">Reviews</a></li>
-                <li><a href="faqs.html">FAQ's</a></li>         
-                <li><a href="profile.html"> My Profile</a></li>
-                
-              </ul>
-              <center>
+         <center>
 	<h2>Register Here!!!</h2>
         <img src="register.jpg" width="550" height="280">
         <br/><br/><br><br>
        
-	<form action="UserRegistration" method="get">
+	<form>
 		<table>
 			<tr>
-				<td>Name:</td>
-				<td><input type="text" name="userName" required></td>
+				<td><b> Name : </b></td>
+				<td><input type="text" name="username" required><br></td>
 			</tr>
-			<tr>
-				<td>Mail ID:</td>
-				<td><input type="text" name="userMail" id="userMail"
+			<tr> 
+				<td><b> Mail ID : </b></td>
+				<td><input type="text" name="wmail" id="userMail"
 					onkeyup="validateEmail(document.getElementById('userMail').value)"
-					required> &nbsp;<span
-					style="color: red; font-size: smaller" id="mailValidation"></span>
+                    required> &nbsp;
+                    <span style="color: red; font-size: smaller" id="mailValidation"></span><br>
 				</td>
 			</tr>
 			<tr>
-				<td>Phone Number:</td>
-				<td><input type="text" name="userPhone" required></td>
+				<td><b> Phone Number : </b></td>
+				<td><input type="text" name="userphone" required><br></td>
 			</tr>
 			<tr>
-				<td>Address:</td>
-				<td><textarea type="text" name="userAddress" placeholder="Enter Address" style="height:60px;width:200px" required></textarea></td>
+				<td><b>Address : </b></td>
+				<td><textarea type="text" name="userAddress" placeholder="Enter Address" style="height:60px;width:200px" required></textarea><br></td>
 			</tr>
 			<tr>
-				<td>PinCode:</td>
-				<td><input type="text" name="userPinCode" placeholder="Enter Pin Code" id="userPinCode" onkeyup="validatePinCode(document.getElementById('userPinCode').value)" required></label>
-                &nbsp;<span style="color:red;font-size:smaller" id="pinCodeValidation"></span> <br></td>
+				<td><b> PinCode : </b></td>
+				<td><input type="text" name="userPinCode" placeholder="Enter Pin Code" id="userPinCode" onkeyup="validatePinCode(document.getElementById('userPinCode').value)" required><br></label>
+                &nbsp;<span style="color:red;font-size:smaller" id="pinCodeValidation"></span><br></td>
 			</tr>
 			<tr>
-				<td>Set Password:</td>
+				<td><b> Set Password : </b></td>
 				<td><input type="password" name="userPswd"
 					placeholder="Enter Password" id="userPswd"
 					onkeyup="validatePassword(document.getElementById('userPswd').value)"
 					required> &nbsp;<span
-					style="color: red; font-size: smaller" id="pswdValidation"></span>
+					style="color: red; font-size: smaller" id="pswdValidation"></span><br>
 					<br></td>
 			</tr>
 			<tr>
-				<td>Confirm Password:</td>
+				<td><b> Confirm Password : </b></td>
 				<td><input type="password" name="userPswd"
 					placeholder="Re-Enter Password" id="userPswd2" required><br>
 				</td>
 			</tr>
 			<tr>
-				<td><br /><br />Do you have children?:</td>
+				<td><br /><br /><b> Do you have children ? : </b></td>
 				<td>Yes:<input type="radio" name="children" value="yes"
 					id="yesCheck" onclick="javascript:yesnoCheck();" required>
 					<div id="ifYes" style="display: none">
-						No.of Children: <input type="text" name="noofchildren"
+						<b> No.of Children : </b> <input type="text" name="noofchildren"
 							id="noofchildren"
 							placeholder="maximum 3 children are only allowed"
 							onkeyup="javascript:giveChildren();">
-						<div id="childInfo">
-						    
-						</div>
+						<div id="childInfo"></div>
 					</div>
 				</td>
 			</tr>
@@ -240,12 +230,12 @@ box-sizing: border-box;
 				</td>
 			</tr>
 			<tr>
-				<td><br /><br />Are you Pregnant?:</td>
+				<td><br /><br /><b> Are you Pregnant ? : </b></td>
 				<td>Yes:<input type="radio" name="pregnant" value="yes"
 					id="yesPregCheck" onclick="javascript:pregnantCheck();" required>
 					<div id="ifYesPreg" style="display: none">
-						Start Date of Pregnancy: <input type="date" name="pregnancyDate"
-							id="pregnancyDate">
+						Month of Pregnancy :  <input type="text" name="pregnancyMonth"
+							id="pregnancyMonth">
 					</div>
 				</td>
 			</tr>
@@ -264,11 +254,10 @@ box-sizing: border-box;
 					onmouseover="validatePasswords(document.getElementById('userPswd').value, document.getElementById('userPswd2').value),validateForm()"><br>
 					<br></td>
 			</tr>
-		</table>
+        </table>
+    
 	</form>
 
-
-	
 </center>
 </body>
 </html>
