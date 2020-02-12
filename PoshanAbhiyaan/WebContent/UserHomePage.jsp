@@ -107,6 +107,26 @@ li.last {
 	<br />
 	<center>
 		<h1>
+		<%
+		 int noOfChildren=(int) session.getAttribute("noOfChildren");
+		if(noOfChildren==0){
+			%>
+			<h2>Add your pregnancy detials or Add Children in <a href="profile.jsp">Profile Section</a></h2><br/>
+			<h2>To Know about Pregnancy and child care navigate</h2>
+			<form action="pregnancy.html" method='get'>
+				<input type="submit"
+					style="margin-left: 100px; color: blanchedalmond; font-size: large; height: 100px; width: 250px; background-color: #99003d; align-content: center"
+					name='PregnancyDetails' value="Pregnancy Details">
+			</form><br/><br/>
+				<form action="child.html" method='get'>
+				<input type="submit"
+					style="margin-left: 100px; color: blanchedalmond; font-size: large; height: 100px; width: 250px; background-color: #99003d; align-content: center"
+					name='ChildDetails' value="Child Details">
+			</form>
+			<%
+		}
+		else{
+		%>
 			<b>Children: Vaccination & Nutritions</b>
 		</h1>
 	</center>
@@ -127,6 +147,7 @@ li.last {
 		</form>
 		<%
 			}
+		}
 		%>
 	</center>
 </body>

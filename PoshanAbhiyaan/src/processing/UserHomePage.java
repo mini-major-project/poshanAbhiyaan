@@ -74,13 +74,11 @@ public class UserHomePage extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if(childNames.size()>0) {
+	//	if(childNames.size()>0) {
 			RequestDispatcher rd = request.getRequestDispatcher("UserHomePage.jsp");
 			rd.include(request, response);
-		}
-		else {
-			
-		}
+	//	}
+		
 	}
 
 	/**
