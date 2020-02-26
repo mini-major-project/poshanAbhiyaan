@@ -30,17 +30,10 @@ import mailapi.SendingMail;
 public class UserRegistration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Default constructor.
-	 */
 	public UserRegistration() {
 		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+    // Get data from the form
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -102,14 +95,10 @@ public class UserRegistration extends HttpServlet {
 			sm.sendEmail();
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
-			System.out.println("ENter valid address mail id");
 			e.printStackTrace();
-			RequestDispatcher rd = request.getRequestDispatcher("UserRegistration.html");
-			rd.forward(request, response);
-			return;
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
-						e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("EnterOTP.html");
@@ -117,10 +106,7 @@ public class UserRegistration extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	// Post the form data into the database
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -140,6 +126,7 @@ public class UserRegistration extends HttpServlet {
 		String userAddress = (String) session.getAttribute("userAddress");
 		String generatedotp = (String) session.getAttribute("generatedotp");
 		String children = (String) session.getAttribute("children");
+		String pregnancyDate = (String) session.getAttribute("pregnancyDate");
 
 //		System.out.println(
 //				userName + " " + userMobile + " " + userMail + " " + userPswd + " " + userAddress + " " + userPinCode);
@@ -149,7 +136,7 @@ public class UserRegistration extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection con = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "root");
+						"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "Rishika");
 				PreparedStatement stmt = con.prepareStatement("select * from user where userMail=?");
 				stmt.setString(1, userMail);
 				if (stmt.executeQuery().next()) {
@@ -231,32 +218,35 @@ public class UserRegistration extends HttpServlet {
 								c.add(Calendar.DAY_OF_MONTH, 4300);
 								String day4300 = sdf.format(c.getTime());
 
-								// Displaying the new Date after addition of Days
-								System.out.println("day42: " + day42);
-								System.out.println("day71: " + day71);
-								System.out.println("day99: " + day99);
-								System.out.println("day472: " + day472);
+							
+							// Displaying the new Date after addition of Days
+							System.out.println("day42: " + day42);
+							System.out.println("day71: " + day71);
+							System.out.println("day99: " + day99);
+							System.out.println("day472: " + day472);
 
-								PreparedStatement pstmt3 = con.prepareStatement(
-										"insert into child(cName,cGender,cDob,parent,day0,day42,day71,day99,day472,day1780,day3560,day4300) values(?,?,?,?,?,?,?,?,?,?,?,?);");
+							PreparedStatement pstmt3 = con
+									.prepareStatement("insert into child(cName,cGender,cDob,parent,day0,day42,day71,day99,day472,day1780,day3560,day4300) values(?,?,?,?,?,?,?,?,?,?,?,?);");
 
-								pstmt3.setString(1, cName);
-								pstmt3.setString(2, cGender);
-								pstmt3.setString(3, cDob);
-								pstmt3.setInt(4, parent);
-								pstmt3.setString(5, cDob);
-								pstmt3.setString(6, day42);
-								pstmt3.setString(7, day71);
-								pstmt3.setString(8, day99);
-								pstmt3.setString(9, day472);
-								pstmt3.setString(10, day1780);
-								pstmt3.setString(11, day3560);
-								pstmt3.setString(12, day4300);
+							pstmt3.setString(1, cName);
+							pstmt3.setString(2, cGender);
+							pstmt3.setString(3, cDob);
+							pstmt3.setInt(4, parent);
+							pstmt3.setString(5, cDob);
+							pstmt3.setString(6, day42);
+							pstmt3.setString(7, day71);
+							pstmt3.setString(8, day99);
+							pstmt3.setString(9, day472);
+							pstmt3.setString(10, day1780);
+							pstmt3.setString(11, day3560);
+							pstmt3.setString(12, day4300);							
 
-								int rs3 = pstmt3.executeUpdate();
-								if (rs3 > 0) {
-									System.out.println("Child entry entered into db");
-								}
+							int rs3 = pstmt3.executeUpdate();
+							if (rs3 > 0) {
+								System.out.println("Child entry entered into db");
+							}
+							
+							
 							} catch (ParseException e) {
 								System.out.println("Date parsing exception");
 								e.printStackTrace();
@@ -264,6 +254,46 @@ public class UserRegistration extends HttpServlet {
 						}
 
 					}
+					// Inserting the details of a pregnant if she is one
+					if(pregnancyDate != "") {
+
+						int userId = parent;
+//						Date pregDate = Date.valueOf(pregnancyDate);
+						int[] days = {31, 61, 91, 121, 151, 181, 196, 211, 226, 241, 248, 255, 261};
+						String[] alertDates = new String[days.length];
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+						Calendar c = Calendar.getInstance();
+						try {
+						for(int i = 0 ; i< days.length ; i++) {
+							c.setTime(sdf.parse(pregnancyDate));
+							c.add(Calendar.DAY_OF_MONTH, days[i]);
+							alertDates[i] = sdf.format(c.getTime());
+						}
+						PreparedStatement pstmtPreg = con
+								.prepareStatement("insert into pregnantPerson(userid, startDateOfPreg,day31Date, day61Date, day91Date, day121Date, day151Date, day181Date, day196Date, day211Date, day226Date, day241Date, day248Date, day255Date, day261Date ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+						pstmtPreg.setInt(1, userId);
+						pstmtPreg.setString(2, pregnancyDate);
+						for(int i = 0;i< alertDates.length ; i++) {
+							pstmtPreg.setString(i+3, alertDates[i]);
+							System.out.println(i+3 +" "+alertDates[i]);
+						}
+						
+						
+						int rs3 = pstmtPreg.executeUpdate();
+						if (rs3 > 0) {
+							System.out.println("Child entry entered into db");
+						}
+						
+						
+						} 
+						catch (ParseException e) {
+							System.out.println("Date parsing exception");
+							e.printStackTrace();
+						}
+						//------- end of data insertion in pregnant table --------------
+					
+					}
+					
 
 					System.out.println("Registered Successfully");
 					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");
@@ -273,7 +303,7 @@ public class UserRegistration extends HttpServlet {
 					System.out.print("Error");
 				}
 			}
-
+			
 			catch (Exception e) {
 				System.out.println("in catch block for connecting sql driver");
 				e.printStackTrace();
