@@ -94,6 +94,7 @@ body {
 .column {
 	flex: 50%;
 }
+
 li.last {
 	float: right !important;
 }
@@ -111,6 +112,8 @@ li.last {
 	<%
 		String userMail = (String) session.getAttribute("userMail");
 		int userId = (int) session.getAttribute("userId");
+		String isPreg = (String) session.getAttribute("isPregnant");
+		String pregName = (String) session.getAttribute("pregName");
 		int noOfChildren = 0;
 		ArrayList<String> childNames = new ArrayList<>();
 		ArrayList<Integer> childIds = new ArrayList<>();
@@ -151,8 +154,7 @@ li.last {
 				}
 				for (int i = 0; i < noOfChildren; i++) {
 			%>
-			<br />
-			<br />
+			<br /> <br />
 			<form action='ChildDetails.jsp' method='get'
 				style='margin-left: 100px;'>
 				<%
@@ -165,26 +167,39 @@ li.last {
 			<%
 				}
 			%>
-			<br />
-			<br />
+			<br /> <br />
 			<h3>You can add your Child here:</h3>
 			<form action="addChild.jsp" method='get'>
 				<input type="submit"
 					style="margin-left: 100px; color: blanchedalmond; font-size: large; height: 100px; width: 250px; background-color: #99003d; align-content: center"
 					name='addChild' value="Add Child">
 			</form>
-			<br />
-			<br />
+			<br /> <br />
 		</div>
 		<div class="column">
-			<br />
-			<br />
-			<h3>Pregnant? Register here for pregnancy related information:</h3>
-			<form action="addPregnancy.jsp" method='get'>
-				<input type="submit"
-					style="margin-left: 100px; color: blanchedalmond; font-size: large; height: 100px; width: 250px; background-color: #99003d; align-content: center"
-					name='Add Pregancy Details' value="Add Pregancy Details">
-			</form>
+			<br /> <br />
+			<%
+				if (isPreg.equals("true")) {
+			%>
+			<center>
+			<h3>Know About Your Pregnacy Details here:</h3>
+				<br /> <br />
+				<form action='PregDetails.jsp' method='get'>
+
+					<input type="submit"
+						style="margin-left: 100px; color: blanchedalmond; font-size: large; height: 100px; width: 250px; background-color: #0099cc; align-content: center"
+						name="pregName" value=" <%out.print(pregName);%> ">
+				</form>
+				<%
+					}
+				%>
+				<br/><br/>
+				<h3>Pregnant? Register here for pregnancy related information:</h3>
+				<form action="addPregnancy.jsp" method='get'>
+					<input type="submit"
+						style="margin-left: 100px; color: blanchedalmond; font-size: large; height: 100px; width: 250px; background-color: #99003d; align-content: center"
+						name='Add Pregancy Details' value="Add Pregancy Details">
+				</form>
 		</div>
 	</div>
 </body>
