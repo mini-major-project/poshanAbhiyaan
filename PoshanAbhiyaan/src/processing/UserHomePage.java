@@ -69,6 +69,17 @@ public class UserHomePage extends HttpServlet {
 			session.setAttribute("childIds", childIds);
 			session.setAttribute("noOfChildren", noOfChildren);
 			session.setAttribute("userId", userId);
+			
+			String isPregnant="";
+			PreparedStatement pstmt2 = con.prepareStatement("select * from pregnantPerson where userid=?");
+			pstmt2.setInt(1, userId);
+			ResultSet rs2 = pstmt2.executeQuery();
+			while (rs2.next()) {
+				session.setAttribute("pregName",session.getAttribute("userName"));
+				session.setAttribute("startDateOfPreg",rs2.getString("startDateOfPreg"));
+				isPregnant="true";
+			}
+			session.setAttribute("isPregnant",isPregnant);
 
 		} catch (Exception e) {
 			e.printStackTrace();
