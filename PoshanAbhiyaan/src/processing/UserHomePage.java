@@ -50,7 +50,7 @@ public class UserHomePage extends HttpServlet {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root", "Rishika");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root", "root");
 			PreparedStatement pstmt = con.prepareStatement("select * from child where parent=?");
 			pstmt.setInt(1, userId);
 			ResultSet rs = pstmt.executeQuery();
@@ -77,7 +77,6 @@ public class UserHomePage extends HttpServlet {
 			while (rs2.next()) {
 				session.setAttribute("pregName",session.getAttribute("userName"));
 				session.setAttribute("startDateOfPreg",rs2.getString("startDateOfPreg"));
-				session.setAttribute("pregId", rs2.getInt("ppid"));
 				isPregnant="true";
 			}
 			session.setAttribute("isPregnant",isPregnant);

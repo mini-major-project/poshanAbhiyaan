@@ -33,7 +33,7 @@ public class SendingMail {
 	}
 
 	private Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root", "Rishika");
+		return DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root", "root");
 	}
 
 	private void closeConnection(Connection con) {
