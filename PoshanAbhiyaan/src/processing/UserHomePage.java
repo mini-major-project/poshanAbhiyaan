@@ -75,6 +75,7 @@ public class UserHomePage extends HttpServlet {
 			pstmt2.setInt(1, userId);
 			ResultSet rs2 = pstmt2.executeQuery();
 			while (rs2.next()) {
+				session.setAttribute("pregId", rs2.getInt("ppid"));
 				session.setAttribute("pregName",session.getAttribute("userName"));
 				session.setAttribute("startDateOfPreg",rs2.getString("startDateOfPreg"));
 				isPregnant="true";
