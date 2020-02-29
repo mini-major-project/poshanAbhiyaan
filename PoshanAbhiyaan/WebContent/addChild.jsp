@@ -122,12 +122,11 @@ li.last {
 				<div id="childInfo"></div>
 			</div>
 			<div id="button"></div>
-			</div>
 		</form>
 	</center>
 
 <%
-System.out.println("No.of childreb: "+request.getParameter("noofchildren"));
+System.out.println("No.of children: "+request.getParameter("noofchildren"));
 if(request.getParameter("noofchildren")!=null){
 int noOfChildren=Integer.parseInt(request.getParameter("noofchildren"));
     int parent=(Integer)session.getAttribute("userId");

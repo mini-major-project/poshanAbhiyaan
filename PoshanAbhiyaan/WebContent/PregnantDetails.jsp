@@ -105,75 +105,59 @@ li.last {
 		<li class="last"><a href="UserLogout">Logout</a></li>
 	</ul>
 	<h2>
-		Vaccination Information of
+		Pregnancy Information of
 		<%
-		out.println(request.getParameter("childName"));
+		out.println(request.getParameter("pregName"));
 	%>:
 	</h2>
 	<%
-		ArrayList<String> childNames = (ArrayList<String>) session.getAttribute("childNames");
-		ArrayList<Integer> childIds = (ArrayList<Integer>) session.getAttribute("childIds");
+		int pregId = (Integer) session.getAttribute("pregId");
 		try {
 			java.sql.Connection con;
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "Rishika");
-			String childName = request.getParameter("childName");
-			System.out.println("childname curr: " + childName);
-			System.out.println("childnames ALL curr: " + childNames);
-			System.out.println("childids all curr: " + childIds);
-
-			int childId = 0;
-			for (int i = 0; i < childNames.size(); i++) {
-				String name = childNames.get(i);
-				System.out.print(i + " : " + name + " : " + childName);
-				if (name.contains(childName) || childName.contains(name)) {
-					System.out.println("CORRECT: " + i + " : " + name + " : " + childName);
-					childId = childIds.get(i);
-				}
-			}
-
-			System.out.println("Child Id: " + childId);
+			
 
 			ArrayList<String> dates = new ArrayList<>();
-			ArrayList<String> vaccinations = new ArrayList<>();
+			ArrayList<String> tests = new ArrayList<>();
 
-			PreparedStatement pstmt = con.prepareStatement("select * from child where cId=?");
-			pstmt.setInt(1, childId);
+			PreparedStatement pstmt = con.prepareStatement("select * from pregnantPerson where ppid=?");
+			pstmt.setInt(1, pregId);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				dates.add(rs.getString("day0"));
-				dates.add(rs.getString("day42"));
-				dates.add(rs.getString("day71"));
-				dates.add(rs.getString("day99"));
-				dates.add(rs.getString("day472"));
-				dates.add(rs.getString("day1780"));
-				dates.add(rs.getString("day3560"));
-				dates.add(rs.getString("day4300"));
+				dates.add(rs.getString("day31Date"));
+				dates.add(rs.getString("day61Date"));
+				dates.add(rs.getString("day91Date"));
+				dates.add(rs.getString("day121Date"));
+				dates.add(rs.getString("day151Date"));
+				dates.add(rs.getString("day181Date"));
+				dates.add(rs.getString("day196Date"));
+				dates.add(rs.getString("day211Date"));
+				dates.add(rs.getString("day226Date"));
+				dates.add(rs.getString("day241Date"));
+				dates.add(rs.getString("day248Date"));
+				dates.add(rs.getString("day255Date"));
+				dates.add(rs.getString("day261Date"));
+				
 			}
 			System.out.println(dates);
-			PreparedStatement pstmt2 = con.prepareStatement("select * from childvaccinations;");
+			PreparedStatement pstmt2 = con.prepareStatement("select * from pregnantTests;");
 			ResultSet rs2 = pstmt2.executeQuery();
 			while (rs2.next()) {
-				vaccinations.add(rs2.getString("day0"));
-				vaccinations.add(rs2.getString("day42"));
-				vaccinations.add(rs2.getString("day71"));
-				vaccinations.add(rs2.getString("day99"));
-				vaccinations.add(rs2.getString("day472"));
-				vaccinations.add(rs2.getString("day1780"));
-				vaccinations.add(rs2.getString("day3560"));
-				vaccinations.add(rs2.getString("day4300"));
+				tests.add(rs2.getString("tests"));
+				
 			}
-			System.out.println(vaccinations);
+			System.out.println(tests);
 	%>
 	<table border=1 align="center">
 		<col width="180">
 		<col width="500">
 		<caption align=top>
-			<h3>Dates on which Vaccinations to be taken</h3>
+			<h3>Dates on which Tests to be taken</h3>
 		</caption>
 		<th>Date:</th>
-		<th>Vaccinations:</th>
+		<th>Tests:</th>
 
 		<%
 			for (int i = 0; i < dates.size(); i++) {
@@ -186,7 +170,7 @@ li.last {
 			</td>
 			<td>
 				<%
-					out.println(vaccinations.get(i));
+					out.println(tests.get(i));
 				%>
 			</td>
 		</tr>

@@ -14,7 +14,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
-<title>Poshan Abhiyyan</title>
+<title>Poshan Abhiyaan</title>
 <script>
 	function logout() {
 
@@ -117,7 +117,7 @@ li.last {
 	<center>
 		<h1>
 			<%
-				int noOfChildren = (int) session.getAttribute("noOfChildren");
+				int noOfChildren = (Integer) session.getAttribute("noOfChildren");
 				String isPreg = (String) session.getAttribute("isPregnant");
 				if (noOfChildren == 0 && !isPreg.equals("true")) {
 			%>
@@ -140,7 +140,7 @@ li.last {
 					name='ChildDetails' value="Child Details">
 			</form>
 			<%
-				} else if (noOfChildren > 0) {
+				} else if (session.getAttribute("noOfChildren")!=null && noOfChildren > 0) {
 			%>
 			<b>Children: Vaccination & Nutritions</b>
 		</h1>
@@ -176,7 +176,7 @@ li.last {
 	%>
 	<center>
 		<br /> <br />
-		<form action='PregDetails.jsp' method='get'>
+		<form action='PregnantDetails.jsp' method='get'>
 
 			<input type="submit"
 				style="color: blanchedalmond; font-size: 30px; height: 120px; width: 300px; background-color: #cc0066; align-content: center"

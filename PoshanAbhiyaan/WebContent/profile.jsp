@@ -120,8 +120,7 @@ li.last {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root",
-					"root");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root","Rishika");
 			PreparedStatement pstmt = con.prepareStatement("select * from child where parent=?");
 			pstmt.setInt(1, userId);
 			ResultSet rs = pstmt.executeQuery();
@@ -184,7 +183,7 @@ li.last {
 			<center>
 			<h3>Know About Your Pregnacy Details here:</h3>
 				<br /> <br />
-				<form action='PregDetails.jsp' method='get'>
+				<form action='PregnantDetails.jsp' method='get'>
 
 					<input type="submit"
 						style="margin-left: 100px; color: blanchedalmond; font-size: large; height: 100px; width: 250px; background-color: #0099cc; align-content: center"
