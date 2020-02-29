@@ -17,7 +17,6 @@
 <title>Poshan Abhiyaan</title>
 <script>
 	function logout() {
-
 		location.href = "home.html";
 	};
 </script>
@@ -27,11 +26,9 @@ ul {
 	overflow: hidden;
 	background-color: rgb(80, 4, 80);
 }
-
 li {
 	float: left;
 }
-
 li a {
 	display: block;
 	color: white;
@@ -39,11 +36,9 @@ li a {
 	padding: 30px 30px;
 	text-decoration: none;
 }
-
 * {
 	box-sizing: border-box;
 }
-
 body {
 	font-family: Arial, Helvetica, sans-serif;
 }
@@ -66,7 +61,6 @@ body {
 	margin-right: auto;
 	width: 50%;
 }
-
 .button {
 	background-color: rgb(5, 80, 8);
 	border: none;
@@ -79,21 +73,17 @@ body {
 	margin: 4px 2px;
 	cursor: pointer;
 }
-
 * {
 	box-sizing: border-box;
 }
-
 }
 .imgcontainer {
 	text-align: center;
 	margin: 24px 0 12px 0;
 }
-
 .container {
 	padding: 16px;
 }
-
 li.last {
 	float: right !important;
 }
@@ -162,7 +152,6 @@ li.last {
 		<%
 			}
 			}
-
 			if (isPreg.equals("true")) {
 		%>
 		<br/><br/>

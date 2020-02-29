@@ -117,7 +117,7 @@ li.last {
 			java.sql.Connection con;
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "Rishika");
+					"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "root");
 			String childName = request.getParameter("childName");
 			System.out.println("childname curr: " + childName);
 			System.out.println("childnames ALL curr: " + childNames);

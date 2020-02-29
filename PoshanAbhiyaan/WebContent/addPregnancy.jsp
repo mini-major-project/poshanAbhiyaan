@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
+<title>Poshan Abhiyaan</title>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,11 +22,9 @@ ul {
 	overflow: hidden;
 	background-color: rgb(80, 4, 80);
 }
-
 li {
 	float: left;
 }
-
 li a {
 	display: block;
 	color: white;
@@ -34,20 +32,16 @@ li a {
 	padding: 30px 30px;
 	text-decoration: none;
 }
-
 * {
 	box-sizing: border-box;
 }
-
 body {
 	font-family: Arial, Helvetica, sans-serif;
 }
-
 /* Remove extra left and right margins, due to padding */
 .row {
 	margin: 0 -5px;
 }
-
 /* Responsive columns */
 @media screen and (max-width: 600px) {
 	.column {
@@ -56,7 +50,6 @@ body {
 		margin-bottom: 20px;
 	}
 }
-
 /* Style the counter cards */
 .center {
 	display: block;
@@ -64,7 +57,6 @@ body {
 	margin-right: auto;
 	width: 50%;
 }
-
 .button {
 	background-color: rgb(5, 80, 8);
 	border: none;
@@ -77,18 +69,15 @@ body {
 	margin: 4px 2px;
 	cursor: pointer;
 }
-
 * {
 	box-sizing: border-box;
 }
-
 li.last {
 	float: right !important;
 }
 </style>
 <script language="Javascript">
 	function pregnantCheck() {
-
 		if (document.getElementById('yesPregCheck').checked) {
 			document.getElementById('ifYesPreg').style.display = 'block';
 			document.getElementById('ifNoPreg').style.display = 'none';
@@ -110,12 +99,12 @@ li.last {
 		<li class="last"><a href="UserLogout">Logout</a></li>
 	</ul>
 	<center>
-		<h3>Want to add Pregnancy Details? Fill in the details.</h3>
+	<br/><br/>
+		<h2>Want to add Pregnancy Details? Fill in the details.</h2>
+		<br/>
 		<form action="addPregnancy.jsp" method = "get">
-				Start Date of Pregnancy: <input type="date" name="pregnancyDate"
-					id="pregnancyDate"
-					>
-			<input class ="button" type = "submit" name = "Add Pregnancy Details" id="AddPregnancyDetails">
+				<h3>Start Date of Pregnancy:</h3> <input style="font-size: 16pt; height: 40px; width:280px; "  type="date" name="pregnancyDate" id="pregnancyDate"	>
+			<br/><br/><input class ="button" type = "submit" name = "Add Pregnancy Details" value="AddPregnancyDetails">
 					
 			</div>
 		</form>
@@ -130,7 +119,7 @@ li.last {
 				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection(
 						"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root",
-						"Rishika");
+						"root");
 				int userId = (Integer) session.getAttribute("userId");
 				//				Date pregDate = Date.valueOf(pregnancyDate);
 				int[] days = { 31, 61, 91, 121, 151, 181, 196, 211, 226, 241, 248, 255, 261 };
@@ -151,21 +140,17 @@ li.last {
 						pstmtPreg.setString(i + 3, alertDates[i]);
 						System.out.println(i + 3 + " " + alertDates[i]);
 					}
-
 					int rs3 = pstmtPreg.executeUpdate();
 					if (rs3 > 0) {
-						System.out.println("Child entry entered into db");
+						System.out.println("Pregnant entry entered into db");
 	%>
 	<jsp:forward page="profile.jsp"></jsp:forward>
 	<%
 		}
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			} catch (Exception e) {
-
 			}
 		}
 	%>

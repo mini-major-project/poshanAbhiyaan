@@ -20,11 +20,9 @@ ul {
 	overflow: hidden;
 	background-color: rgb(80, 4, 80);
 }
-
 li {
 	float: left;
 }
-
 li a {
 	display: block;
 	color: white;
@@ -32,20 +30,16 @@ li a {
 	padding: 30px 30px;
 	text-decoration: none;
 }
-
 * {
 	box-sizing: border-box;
 }
-
 body {
 	font-family: Arial, Helvetica, sans-serif;
 }
-
 /* Remove extra left and right margins, due to padding */
 .row {
 	margin: 0 -5px;
 }
-
 /* Responsive columns */
 @media screen and (max-width: 600px) {
 	.column {
@@ -54,7 +48,6 @@ body {
 		margin-bottom: 20px;
 	}
 }
-
 /* Style the counter cards */
 .center {
 	display: block;
@@ -62,7 +55,6 @@ body {
 	margin-right: auto;
 	width: 50%;
 }
-
 .button {
 	background-color: rgb(5, 80, 8);
 	border: none;
@@ -75,17 +67,14 @@ body {
 	margin: 4px 2px;
 	cursor: pointer;
 }
-
 * {
 	box-sizing: border-box;
 }
-
 }
 .imgcontainer {
 	text-align: center;
 	margin: 24px 0 12px 0;
 }
-
 .container {
 	padding: 16px;
 }
@@ -118,10 +107,8 @@ li.last {
 			con = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "Rishika");
 			
-
 			ArrayList<String> dates = new ArrayList<>();
 			ArrayList<String> tests = new ArrayList<>();
-
 			PreparedStatement pstmt = con.prepareStatement("select * from pregnantPerson where ppid=?");
 			pstmt.setInt(1, pregId);
 			ResultSet rs = pstmt.executeQuery();

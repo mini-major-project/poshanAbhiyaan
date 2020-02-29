@@ -115,12 +115,14 @@ li.last {
 		String isPreg = (String) session.getAttribute("isPregnant");
 		String pregName = (String) session.getAttribute("pregName");
 		int noOfChildren = 0;
+		String isPregnant="";
 		ArrayList<String> childNames = new ArrayList<>();
 		ArrayList<Integer> childIds = new ArrayList<>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root","Rishika");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root",
+					"root");
 			PreparedStatement pstmt = con.prepareStatement("select * from child where parent=?");
 			pstmt.setInt(1, userId);
 			ResultSet rs = pstmt.executeQuery();
@@ -139,6 +141,18 @@ li.last {
 			session.setAttribute("childIds", childIds);
 			session.setAttribute("noOfChildren", noOfChildren);
 			session.setAttribute("userId", userId);
+			
+			
+			PreparedStatement pstmt2 = con.prepareStatement("select * from pregnantPerson where userid=?");
+			pstmt2.setInt(1, userId);
+			ResultSet rs2 = pstmt2.executeQuery();
+			while (rs2.next()) {
+				session.setAttribute("pregName",session.getAttribute("userName"));
+				session.setAttribute("startDateOfPreg",rs2.getString("startDateOfPreg"));
+				isPregnant="true";
+				pregName=(String)session.getAttribute("userName");
+			}
+			session.setAttribute("isPregnant",isPregnant);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -178,10 +192,10 @@ li.last {
 		<div class="column">
 			<br /> <br />
 			<%
-				if (isPreg.equals("true")) {
+				if (isPreg.equals("true") || isPregnant.equals("true")) {
 			%>
 			<center>
-			<h3>Know About Your Pregnacy Details here:</h3>
+			<h3>Know About Your Pregnancy Details here:</h3>
 				<br /> <br />
 				<form action='PregnantDetails.jsp' method='get'>
 
@@ -190,7 +204,7 @@ li.last {
 						name="pregName" value=" <%out.print(pregName);%> ">
 				</form>
 				<%
-					}
+					}else{
 				%>
 				<br/><br/>
 				<h3>Pregnant? Register here for pregnancy related information:</h3>
@@ -199,6 +213,7 @@ li.last {
 						style="margin-left: 100px; color: blanchedalmond; font-size: large; height: 100px; width: 250px; background-color: #99003d; align-content: center"
 						name='Add Pregancy Details' value="Add Pregancy Details">
 				</form>
+				<%} %>
 		</div>
 	</div>
 </body>
