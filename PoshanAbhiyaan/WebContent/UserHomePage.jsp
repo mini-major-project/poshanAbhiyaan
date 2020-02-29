@@ -109,6 +109,7 @@ li.last {
 			<%
 				int noOfChildren = (Integer) session.getAttribute("noOfChildren");
 				String isPreg = (String) session.getAttribute("isPregnant");
+				//session.setAttribute("", arg1)
 				if (noOfChildren == 0 && !isPreg.equals("true")) {
 			%>
 			<h2>

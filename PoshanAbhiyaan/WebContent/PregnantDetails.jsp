@@ -6,14 +6,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Poshan ABhiyaan</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<title>Document</title>
 <style>
 ul {
 	list-style-type: none;
@@ -100,12 +99,14 @@ li.last {
 	%>:
 	</h2>
 	<%
+		
+	if((Integer)session.getAttribute("pregId")!=null){
 		int pregId = (Integer) session.getAttribute("pregId");
 		try {
 			java.sql.Connection con;
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "Rishika");
+					"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "root");
 			
 			ArrayList<String> dates = new ArrayList<>();
 			ArrayList<String> tests = new ArrayList<>();
@@ -166,6 +167,7 @@ li.last {
 			} catch (SQLException e) {
 				out.println("SQLException caught: " + e.getMessage());
 			}
+	}
 		%>
 	</table>
 </body>
