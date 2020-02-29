@@ -46,7 +46,7 @@ public class ForgotPassword extends HttpServlet {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root", "root");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poshanabhiyaan", "root", "Rishika");
 			PreparedStatement pstmt = con.prepareStatement("select * from user where userMail=?");
 			pstmt.setString(1, userMail);
 			ResultSet rs = pstmt.executeQuery();

@@ -140,7 +140,7 @@ public class UserRegistration extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection con = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "root");
+						"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "Rishika");
 				PreparedStatement stmt = con.prepareStatement("select * from user where userMail=?");
 				stmt.setString(1, userMail);
 				if (stmt.executeQuery().next()) {
