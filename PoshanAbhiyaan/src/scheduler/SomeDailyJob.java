@@ -25,7 +25,7 @@ public class SomeDailyJob implements Runnable {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "Rishika");
+					"jdbc:mysql://localhost:3306/poshanabhiyaan?autoReconnect=true&useSSL=false", "root", "root");
 			// Send alerts to child
 			PreparedStatement pstmt = con.prepareStatement("select * from child;");
 			ResultSet rs = pstmt.executeQuery();
