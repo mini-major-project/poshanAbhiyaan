@@ -93,8 +93,9 @@ li.last {
 	<ul>
 		<li><a href="InfoHomePage.html">Home</a></li>
 		<li><a href="UserHomePage.jsp">Track Your Records</a></li>
-		<li><a href="pregnancy.html">About Pregnancy</a></li>
-		<li><a href="child.html">About Child Care</a></li>
+		<li><a href="women.html">Women</a></li>
+		<li><a href="child.html">Child</a></li>
+		<li><a href="EmergencySearch.html">Emergency</a></li>
 		<li><a href="profile.jsp"> My Profile</a></li>
 		<li class="last"><a href="UserLogout">Logout</a></li>
 	</ul>
