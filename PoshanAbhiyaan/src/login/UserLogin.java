@@ -50,6 +50,7 @@ public class UserLogin extends HttpServlet {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next() == false) {
 				System.out.println("First Register");
+				out.println("<html><head></head><body><center><h2 style='color:red'>Not a Registered user. REGISTER HERE</h2></center></body></html>");
 				RequestDispatcher rd = request.getRequestDispatcher("UserRegistration.html");
 				rd.include(request, response);
 			} else {
@@ -82,6 +83,7 @@ public class UserLogin extends HttpServlet {
 					rd.forward(request, response);
 				} else {
 					System.out.println("Wrong Password");
+					out.println("<html><head></head><body><center><h2 style='color:red'>Wrong Password</h2></center></body></html>");
 					RequestDispatcher rd = request.getRequestDispatcher("UserLogin.html");
 					rd.include(request, response);
 				}
